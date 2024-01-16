@@ -2,7 +2,7 @@
 
 <a href="https://www.microchip.com" rel="nofollow"><img src="images/microchip.png" alt="MCHP" width="300"/></a>
 
-# Tachometer — Use Case for CLB using the PIC16F13145 Microcontroller with MCC Melody
+# Tachometer — Use Case for CLB Using the PIC16F13145 Microcontroller with MCC Melody
 
 This repository provides an MPLAB® X project for interfacing the Configurable Logic Block (CLB) with Timer0 (TMR0) and Timer1 (TMR1) peripherals to control a Switec stepper motor. By the end of this example, you will be able to provide a degree of rotation (0-315) and have the stepper motor move to that angle.
 
@@ -47,19 +47,19 @@ This example demonstrates the capabilities of the CLB, a Core Independent Periph
 
 <br><img src="images/mcc_clb_circuit.png" width="800">
 
-Two bits of the CLB Software Input Register (CLBSWIN) are used as synchronized inputs to enable the CLB circuit (CLBSWIN0) and to select the direction (CLBSWIN1), clockwise if set in software ```0```, or counterclockwise if ```1```.
+Two bits of the CLB Software Input Register (CLBSWIN) are used as synchronized inputs to enable the CLB circuit (CLBSWIN0) and to select the direction (CLBSWIN1), clockwise if it is set as ```0``` in software, or counterclockwise if it is ```1```.
 
-The TMR0 peripheral is configured as 8-bit timer to define a 2 milliseconds periodically signal needed for this type of stepper motor to be controlled, as described in its datasheet.
+The TMR0 peripheral is configured as an 8-bit timer to define a two millisecond periodically signal needed for this type of steppper motor to be controller, as described in its data sheet.
 
-The TMR1 peripheral is used to count the TMR0 interrupt overflows, and rolls over after a set number in software of rotation steps. To define a full step, 3 partial steps are needed, as in the above figure from the datasheet.
+The TMR1 peripheral is used to count the TMR0 interrupt overflows, and rolls over after a set number in software of rotation steps. To define a full step, three partial steps are needed, as in the figure below, from the data sheet.
 
 <br><img src="images/switec-full-step.png" width="800">
 
-The Interrupt Request 0 (IRQ) of the CLB is used for the TMR1 overflow, instead of timers' one because the CLB circuit will introduce two CLB clocks delay and the interrupt could be missed in software.
+The Interrupt Request 0 (IRQ) of the CLB is used for the TMR1 overflow, instead of the timer's one because the CLB circuit will introduce two CLB clocks delay and the interrupt could be missed in software.
 
 When the application starts, the shaft of the motor is set to an initial position, so that the motor always starts from a fixed position and is defined to the left of the dial. Using the Enhanced Universal Synchronous Asynchronous Receiver Transmitter (EUSART) peripheral, a position can be sent via PC terminal and observed on the external hardware.
 
-The UART peripheral is used to control the shaft position of the motor. The user must send a value between 0 and 315 to set the desired position and the specific " `\n` " character at the end of the line for a right interpretation into the software application. Specific messages are also displayed in the terminal as in the below picture.
+The UART peripheral is used to control the shaft position of the motor. The user must send a value between 0 and 315 to set the desired position and the specific " `\n` " character at the end of the line for a right interpretation in the software application. Specific messages are also displayed in the terminal as in the picture below.
 <br><img src="images/data_visualizer_concept.png" width="800">
 
 ## Setup 
@@ -135,7 +135,7 @@ The following peripheral and clock configurations are set up using MPLAB® Code 
 
 ## Demo
 
-Different shift position are sent via the PC terminal and can be observed in the next demonstration. Each transmitted number described by ``LF`` newline character. Also, an actual position and help messages are shown in the terminal.
+Different shift position are sent via the PC terminal and can be observed in the next demonstration. Each transmitted number is described by ``LF`` newline character. An actual position and a help message are also shown in the terminal.
 
 **Note:** The demo is at 2x speed.
 <br><img src="images/demo.gif" width="1000"> 
