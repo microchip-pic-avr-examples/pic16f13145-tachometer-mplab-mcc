@@ -49,13 +49,13 @@ This example demonstrates the capabilities of the CLB, a Core Independent Periph
 
 Two bits of the CLB Software Input Register (CLBSWIN) are used as synchronized inputs to enable the CLB circuit (CLBSWIN0) and to select the direction (CLBSWIN1), clockwise if it is set as ```0``` in software, or counterclockwise if it is ```1```.
 
-The TMR0 peripheral is configured as an 8-bit timer to define a two millisecond periodically needed signal for this type of stepper motor to be controller, as described in its data sheet.
+The TMR0 peripheral is configured as an 8-bit timer to create a two millisecond periodically signal. This signal is used to control the partial steps rate accordingly to the specifications of the Switec stepper motor.
 
-The TMR1 peripheral is used to count the TMR0 interrupt overflows, and rolls over after a set number in software of rotation steps. To define a full step, three partial steps are needed, as in the figure below, from the data sheet.
+For one full step, three partial steps are needed, as in the figure below, from Switec's data sheet. The TMR1 peripheral is used to control the number of partial steps (TMR0 overflow pulses) configured by software application.
 
 <br><img src="images/switec-full-step.png" width="800">
 
-The Interrupt Request 0 (IRQ) of the CLB is used for the TMR1 overflow, instead of the timer's because the CLB circuit will introduce two CLB clocks delay and the interrupt could be missed in software.
+The positive edge of the TMR1 overflow is used to stop the waveform sequence applied to the Switec stepper motor when the number of partial steps are reached. The edge detector introduces two CLB clocks delay (four milliseconds). To avoid missing of steps, an CLB interrupt request (CLB_IRQ0) is generated when the step sequence is complete (on the edge of TMR1 overflow).
 
 When the application starts, the shaft of the motor is set to an initial position, so that the motor always starts from a fixed position and is defined to the left of the dial. Using the Enhanced Universal Synchronous Asynchronous Receiver Transmitter (EUSART) peripheral, a position can be sent via PC terminal and observed on the external hardware.
 
